@@ -83,7 +83,7 @@
                         title="Verifying signature..."
                     />
                 {:else}
-                    <VerificationResult result={card.verification} />
+                    <VerificationResult result={card.verification} from={card.from} />
                 {/if}
             </div>
             <div class="col d-none d-print-block qrcode">
@@ -179,7 +179,7 @@
                             title="Verifying signature..."
                         />
                     {:else}
-                        <VerificationResult result={card.verification} />
+                        <VerificationResult result={card.verification} from={card.from} />
                     {/if}
                 </div>
             </div>

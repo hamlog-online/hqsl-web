@@ -4,6 +4,8 @@
     import KeyLink from "./KeyLink.svelte";
 
     export let result: HQSLVerification;
+    export let from: string | undefined;
+
     let certifierName: string;
     let certifierFingerprint: string;
     let signerFingerprint: string;
@@ -17,10 +19,31 @@
             certifierFingerprint = result.certifierKey.getFingerprint();
         }
         if (result.signerKey) {
+            signerFingerprint = result.signerKey.getFingerprint();
+
+            // We default to reporting the primary UserID here.
             signerName =
                 (await result.signerKey.getPrimaryUser()).user.userID?.userID ||
                 "";
-            signerFingerprint = result.signerKey.getFingerprint();
+
+            // But for UX purposes, we should supply the relevant call sign userID
+            // if possible, so let's try doing that.
+            const keyCalls = result.signerKey
+                .getUserIDs()
+                .filter((x) => x.startsWith("Amateur Radio Callsign: "));
+
+            if (!from) {
+                return;
+            }
+            outerLoop: for (const chunk of from.split("/")) {
+                for (const callUID of keyCalls) {
+                    const call = callUID.split(": ")[1];
+                    if (call == chunk) {
+                        signerName = callUID;
+                        break outerLoop;
+                    }
+                }
+            }
         }
     };
 
