@@ -26,13 +26,7 @@ console.log("Browser compatibility policy:", browserPolicy);
 
 function chunkingLogic(id: string) {
     {
-        // Our own HQSL library is somewhat volatile.
-        // When it's sufficiently stable and published, this chunk will
-        // be obsolete and go with the rest of vendor libs.
-        if (id.includes("node_modules/hqsl")) {
-            return "hqsl";
-        }
-        // Everything else can just be vendored.
+        // Everything can just be vendored.
         if (id.includes("node_modules")) {
             return "vendor";
         }
