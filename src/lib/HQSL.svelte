@@ -74,7 +74,7 @@
                 <p class="sender">
                     <CallLink call={card.from} />
                 </p>
-                <p>confirms QSO with</p>
+                <p><a href="https://hqsl.net">confirms QSO with</a></p>
             </div>
             <div class="col verification d-none d-print-block">
                 {#if card.verification?.verdict == undefined}
@@ -83,7 +83,10 @@
                         title="Verifying signature..."
                     />
                 {:else}
-                    <VerificationResult result={card.verification} from={card.from} />
+                    <VerificationResult
+                        result={card.verification}
+                        from={card.from}
+                    />
                 {/if}
             </div>
             <div class="col d-none d-print-block qrcode">
@@ -179,7 +182,10 @@
                             title="Verifying signature..."
                         />
                     {:else}
-                        <VerificationResult result={card.verification} from={card.from} />
+                        <VerificationResult
+                            result={card.verification}
+                            from={card.from}
+                        />
                     {/if}
                 </div>
             </div>
