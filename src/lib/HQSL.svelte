@@ -27,7 +27,7 @@
 
     const updateCard = async () => {
         if (!client) {
-            client = await HQSLOpenPGP.setup(trustedKeys, keyservers);
+            client = await HQSLOpenPGP.setup(trustedKeys, keyservers, 2000);
         }
         // Do not start up processing on an empty card.
         if (!qslString) {
