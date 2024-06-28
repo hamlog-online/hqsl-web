@@ -71,7 +71,11 @@
 {:else if result.verdict == HQSLState.KeyNotFound}
     <p class="text-warning">
         Signature could not be verified:<br />
-        Signer key not available.
+        {#if !window.navigator.onLine}
+            Keyservers cannot be queried while offline.
+        {:else}
+            Signer key not available.
+        {/if}
     </p>
 {:else if result.verdict == HQSLState.KeyNotCertified}
     <p class="text-warning">
