@@ -29,6 +29,10 @@ function chunkingLogic(id: string) {
         // Everything can just be vendored.
         if (id.includes("node_modules")) {
             return "vendor";
+        } else if (id.includes("geodata")) {
+            // We do not anticipate ITU and CQ zones changing soon, 
+            // so this deserves its own chunk for long term caching.
+            return "geo";
         }
     }
 }

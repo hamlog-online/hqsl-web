@@ -75,3 +75,8 @@ a:hover {
         color: #000 !important;
     }
 }
+
+// Utility class used in multiple places.
+.nowrap {
+    white-space: nowrap;
+}

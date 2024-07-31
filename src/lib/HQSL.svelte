@@ -11,6 +11,7 @@
     import Spinner from "./Spinner.svelte";
     import VerificationResult from "./VerificationResult.svelte";
     import Clipboard from "./Clipboard.svelte";
+    import Zones from "./Zones.svelte";
 
     export let qslString: string;
     const trustedKeys: string[] = getContext("trustedkeys");
@@ -119,8 +120,10 @@
                                 <td>{card.freq} ({card.band})</td>
                                 <td
                                     on:click={map.recenter}
-                                    style="cursor:pointer;">{card.where}</td
-                                >
+                                    style="cursor:pointer;"
+                                    >{card.where}
+                                    <Zones grid={card.where} />
+                                </td>
                                 <td>{card.signal}</td>
                             </tr>
                             {#if card.extra}
@@ -156,7 +159,10 @@
                             </tr>
                             <tr on:click={map.recenter} style="cursor:pointer;">
                                 <td class="thcol">Grid</td>
-                                <td>{card.where}</td>
+                                <td
+                                    >{card.where}
+                                    <Zones grid={card.where} />
+                                </td>
                             </tr>
                             <tr>
                                 <td class="thcol">Report</td>
