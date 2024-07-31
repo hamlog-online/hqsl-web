@@ -94,8 +94,9 @@
                 <QrCode text={cardLink} size={120} />
             </div>
         </div>
-        <div class="row d-none d-print-block print-spacer"></div>
-        <div class="row align-items-start justify-content-center">
+        <div
+            class="row align-items-start justify-content-center print-hug-bottom"
+        >
             <div class="col-md-8 col-sm-12 table-column">
                 <div class="d-none d-md-block d-print-block">
                     <table class="table table-striped-columns table-bordered">
@@ -282,11 +283,19 @@
             }
 
             .print-spacer {
-                padding-top: 12mm;
+                margin-top: 4mm;
             }
 
             .qrcode {
                 text-align: right;
+            }
+
+            .print-hug-bottom {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                padding-left: 3mm;
+                padding-right: 3mm;
             }
         }
     }
