@@ -10,7 +10,7 @@ const maps = [];
 for (const fn of fs.readdirSync("geojson")) {
     if (fn.endsWith(".json")) {
         console.log(fn);
-        maps.push("geojson/" + fn);
+        maps.push(`'geojson/${fn}'`);
     }
 }
 
