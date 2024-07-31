@@ -9,13 +9,20 @@
     function zoneLoop(g: string) {
         const zoneTable = [];
         if (g) {
-            for (const zone of zones) {
-                zoneTable.push({
-                    z: zone,
-                    v: GridZone(zone, g),
-                });
+            for (const zoneList of zones) {
+                const zoneName = GridZone(zoneList, g);
+                if (zoneName !== null) {
+                    zoneTable.push({
+                        l: zoneList,
+                        n: zoneName,
+                        c: true,
+                    });
+                }
             }
         }
+        // This is a silly way to pre-compute commas.
+        zoneTable[zoneTable.length - 1].c = false;
+
         return zoneTable;
     }
 </script>
@@ -23,32 +30,16 @@
 {#if grid}
     <span class="footnote">
         <br />
-        <ul class="zones">
-            {#each zoneLoop(grid) as zoneInfo}
-                {#if zoneInfo.v !== null}
-                    <li class="nowrap"><b>{zoneInfo.z}</b>: {zoneInfo.v}</li>
-                {/if}
-            {/each}
-        </ul>
+        {#each zoneLoop(grid) as zoneInfo}
+            <span class="nowrap">
+                <b>{zoneInfo.l}</b>: {zoneInfo.n}{zoneInfo.c ? "," : ""}
+            </span>
+            {zoneInfo.c ? " " : ""}
+        {/each}
     </span>
 {/if}
 
 <style lang="scss">
-    .zones {
-        padding-left: 0;
-        display: inline;
-        list-style: none;
-        li {
-            display: inline;
-        }
-        li:after {
-            content: ", ";
-        }
-        li:last-child:after {
-            content: "";
-        }
-    }
-
     .footnote {
         font-size: 75%;
     }
