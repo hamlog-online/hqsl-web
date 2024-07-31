@@ -107,7 +107,7 @@
                                 <th>MHz</th>
                                 <th
                                     on:click={map.recenter}
-                                    style="cursor:pointer;">Grid</th
+                                    style="cursor:pointer;">Location</th
                                 >
                                 <th>Report</th>
                             </tr>
@@ -158,7 +158,7 @@
                                 <td>{card.freq} ({card.band})</td>
                             </tr>
                             <tr on:click={map.recenter} style="cursor:pointer;">
-                                <td class="thcol">Grid</td>
+                                <td class="thcol">Location</td>
                                 <td
                                     >{card.where}
                                     <Zones grid={card.where} />
