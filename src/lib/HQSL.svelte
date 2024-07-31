@@ -282,10 +282,6 @@
                 width: 100%;
             }
 
-            .print-spacer {
-                margin-top: 4mm;
-            }
-
             .qrcode {
                 text-align: right;
             }
