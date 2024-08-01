@@ -290,9 +290,9 @@
             .print-hug-bottom {
                 position: absolute;
                 bottom: 0;
-                right: 0;
-                padding-left: 3mm;
-                padding-right: 3mm;
+                right: 5mm;
+                padding-left: 4mm;
+                width: 100%;
             }
         }
     }
