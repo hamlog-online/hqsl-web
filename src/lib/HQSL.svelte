@@ -97,8 +97,8 @@
         <div
             class="row align-items-start justify-content-center print-hug-bottom"
         >
-            <div class="col-md-8 col-sm-12 table-column">
-                <div class="d-none d-md-block d-print-block">
+            <div class="col-lg-8 col-md-12 table-column">
+                <div class="d-none d-lg-block d-print-block">
                     <table class="table table-striped-columns table-bordered">
                         <thead>
                             <tr>
@@ -139,7 +139,7 @@
                     </table>
                 </div>
 
-                <div class="d-md-none d-print-none">
+                <div class="d-lg-none d-print-none">
                     <table class="table vertable table-bordered pb-2 vertable">
                         <tbody>
                             <tr>
@@ -182,7 +182,7 @@
                     </table>
                 </div>
 
-                <div class="pt-md-4 verification d-print-none">
+                <div class="pt-lg-4 verification d-print-none">
                     {#if card.verification?.verdict == undefined}
                         <Spinner
                             cls="text-success"
@@ -196,7 +196,7 @@
                     {/if}
                 </div>
             </div>
-            <div class="col-md-4 col-sm-12 d-print-none">
+            <div class="col-lg-4 col-md-12 d-print-none">
                 <div class="pb-2">
                     <GridMap grid={card.where} height="300px" bind:this={map} />
                 </div>
