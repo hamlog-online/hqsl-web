@@ -229,6 +229,7 @@
         border: 1px solid black;
         padding: 1em;
         margin: 2em;
+        min-width: 360px;
     }
     .vertable {
         td {
