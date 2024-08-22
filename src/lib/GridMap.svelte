@@ -33,7 +33,12 @@
     });
 
     function drawGridSquare() {
-        box = maidenheadToBoundingBox(grid);
+        try {
+            box = maidenheadToBoundingBox(grid);
+        } catch (err) {
+            console.error(`Our library has a problem with the grid "${grid}"`);
+            return;
+        }
 
         rectangle(box, {
             color: "#00f8",

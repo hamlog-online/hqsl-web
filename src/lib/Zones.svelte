@@ -21,7 +21,9 @@
             }
         }
         // This is a silly way to pre-compute commas.
-        zoneTable[zoneTable.length - 1].c = false;
+        if (zoneTable.length > 1) {
+            zoneTable[zoneTable.length - 1].c = false;
+        }
 
         return zoneTable;
     }
