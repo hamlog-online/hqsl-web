@@ -8,7 +8,8 @@
     } from "leaflet";
     import type MapOptions from "leaflet";
     import "leaflet/dist/leaflet.css";
-    import { maidenheadToBoundingBox } from "@hamset/maidenhead-locator";
+    import { gridToBox, gridToPoint } from "@hamlog/maidenhead";
+    import type { GridBox } from "@hamlog/maidenhead";
     import { afterUpdate, onMount } from "svelte";
 
     export let grid = "";
@@ -17,7 +18,7 @@
 
     let mapDiv: HTMLElement;
     let mapObject: MapOptions.Map;
-    let box: MapOptions.LatLngBoundsExpression;
+    let box: GridBox;
 
     onMount(() => {
         mapObject = map(mapDiv, mapOptions).setView([0, 0], 13);
@@ -33,29 +34,30 @@
     });
 
     function drawGridSquare() {
-        try {
-            box = maidenheadToBoundingBox(grid);
-        } catch (err) {
-            console.error(`Our library has a problem with the grid "${grid}"`);
-            return;
-        }
+        box = gridToBox(grid);
 
-        rectangle(box, {
-            color: "#00f8",
-            weight: 1,
-        }).addTo(mapObject);
+        rectangle(
+            [
+                [box[0].lat, box[0].lon],
+                [box[1].lat, box[1].lon],
+            ],
+            {
+                color: "#00f8",
+                weight: 1,
+            }
+        ).addTo(mapObject);
 
-        const center = [
-            (box[0][0] + box[1][0]) / 2,
-            (box[0][1] + box[1][1]) / 2,
-        ];
+        const center = gridToPoint(grid);
 
-        marker(center as LatLngTuple).addTo(mapObject);
+        marker([center.lat, center.lon] as LatLngTuple).addTo(mapObject);
         recenter();
     }
 
     export function recenter() {
-        mapObject.fitBounds(box);
+        mapObject.fitBounds([
+            [box[0].lat, box[0].lon],
+            [box[1].lat, box[1].lon],
+        ]);
     }
 </script>
 
