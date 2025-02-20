@@ -4,10 +4,6 @@ import browserslistToEsbuild from "browserslist-to-esbuild";
 import tsconfigPaths from "vite-tsconfig-paths";
 import UnpluginDetectDuplicatedDeps from "unplugin-detect-duplicated-deps/vite";
 
-// We direct our code to load openpgp from CDN.
-const openpgpCDN =
-    "https://cdn.jsdelivr.net/npm/openpgp@5.11.1/dist/openpgp.min.mjs";
-
 // I presume that this way, any polyfills required will end up in vendor chunk.
 const browserPolicy = browserslistToEsbuild([
     // Boilerplate at start.
@@ -30,7 +26,7 @@ function chunkingLogic(id: string) {
         if (id.includes("node_modules")) {
             return "vendor";
         } else if (id.includes("geodata")) {
-            // We do not anticipate ITU and CQ zones changing soon, 
+            // We do not anticipate ITU and CQ zones changing soon,
             // so this deserves its own chunk for long term caching.
             return "geo";
         }
@@ -72,12 +68,8 @@ export default defineConfig({
         emptyOutDir: true,
         chunkSizeWarningLimit: 600000,
         rollupOptions: {
-            external: ["openpgp"],
             output: {
                 manualChunks: chunkingLogic,
-                paths: {
-                    openpgp: openpgpCDN,
-                },
             },
         },
     },
@@ -85,6 +77,16 @@ export default defineConfig({
         preprocessorOptions: {
             scss: {
                 additionalData: '@use "src/variables.scss" as *;',
+                // See https://github.com/twbs/bootstrap/issues/40962 for why.
+                // Eventually this is to be removed after Bootstrap updated
+                // for Dart Sass 3.0 is available.
+                silenceDeprecations: [
+                    "mixed-decls",
+                    "color-functions",
+                    "global-builtin",
+                    "import",
+                    "legacy-js-api",
+                ],
             },
         },
     },
