@@ -25,6 +25,7 @@
     let map: GridMap;
     let cardLink: string = "";
     let fullyValid = false;
+    let inputArea: string = "";
 
     const updateCard = async () => {
         if (!client) {
@@ -213,9 +214,29 @@
 {:else if qslString}
     <Spinner cls="text-primary" />
 {:else}
-    <div class="container">
-        <div class="row">
-            <p>No HQSL was supplied, nothing to verify.</p>
+    <div class="container form">
+        <div class="row w-50 mx-auto">
+            <h3 class="title">No HQSL data found in the URL</h3>
+            <p>
+                You are meant to come here with a specially formatted URL
+                containing an encoded <a href="https://hqsl.net">HQSL card</a>.
+            </p>
+            <p>If you didn't, you can just paste its contents here:</p>
+            <p>
+                <textarea
+                    class="form-control"
+                    style="height: 5em;"
+                    placeholder="The card will begin validation immediately when you do that."
+                    bind:value={inputArea}
+                    on:paste={() => {
+                        // Most expedient way to happen on paste after the paste is actually done.
+                        setTimeout(() => {
+                            qslString =
+                                inputArea.trim().split("#").at(-1) || "";
+                        }, 1);
+                    }}
+                ></textarea>
+            </p>
         </div>
     </div>
 {/if}
