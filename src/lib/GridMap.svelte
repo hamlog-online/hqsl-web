@@ -49,7 +49,7 @@
 
         const center = gridToPoint(grid);
 
-        marker([center.lat, center.lon] as LatLngTuple).addTo(mapObject);
+        //marker([center.lat, center.lon] as LatLngTuple).addTo(mapObject);
         recenter();
     }
 
