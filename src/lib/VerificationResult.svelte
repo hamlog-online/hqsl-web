@@ -62,7 +62,7 @@
         >
     </p>
 {:else if result.verdict == HQSLState.NotSigned}
-    <p class="text-info">This HQSL is not signed.</p>
+    <p class="text-info" style="color:red !important;">⚠ This HQSL is not signed.</p>
 {:else if result.verdict == HQSLState.Invalid}
     <p class="text-danger">
         Signature could not be verified:<br />
