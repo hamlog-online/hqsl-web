@@ -120,12 +120,16 @@
                                 <td><NowrapDate date={card.displayDate} /></td>
                                 <td>{card.mode}</td>
                                 <td>{card.freq} ({card.band})</td>
-                                <td
-                                    on:click={map.recenter}
-                                    style="cursor:pointer;"
-                                    >{card.where}
-                                    <Zones grid={card.where} />
-                                </td>
+                                {#if card.where !== ""}
+                                    <td
+                                        on:click={map.recenter}
+                                        style="cursor:pointer;"
+                                        >{card.where}
+                                        <Zones grid={card.where} />
+                                    </td>
+                                {:else}
+                                    <td></td>
+                                {/if}
                                 <td>{card.signal}</td>
                             </tr>
                             {#if card.extra}
@@ -159,13 +163,23 @@
                                 <td class="thcol">MHz</td>
                                 <td>{card.freq} ({card.band})</td>
                             </tr>
-                            <tr on:click={map.recenter} style="cursor:pointer;">
-                                <td class="thcol">Location</td>
-                                <td
-                                    >{card.where}
-                                    <Zones grid={card.where} />
-                                </td>
-                            </tr>
+                            {#if card.where !== ""}
+                                <tr
+                                    on:click={map.recenter}
+                                    style="cursor:pointer;"
+                                >
+                                    <td class="thcol">Location</td>
+                                    <td
+                                        >{card.where}
+                                        <Zones grid={card.where} />
+                                    </td>
+                                </tr>
+                            {:else}
+                                <tr>
+                                    <td class="thcol">Location</td>
+                                    <td></td>
+                                </tr>
+                            {/if}
                             <tr>
                                 <td class="thcol">Report</td>
                                 <td>{card.signal}</td>
