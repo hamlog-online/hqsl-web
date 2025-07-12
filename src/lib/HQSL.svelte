@@ -36,6 +36,11 @@
             return;
         }
         try {
+            // This replaceAll is a dirty hack to handle a printing error on
+            // a number of physical cards. On a properly formed card it can't
+            // do much damage anyway...
+            qslString = qslString.replaceAll("%20", "+");
+
             card = HQSL.fromString(qslString);
             // And then try to verify it, which will cause an assignment with.
             // verification result...
