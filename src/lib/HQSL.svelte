@@ -37,9 +37,16 @@
         }
         try {
             // This replaceAll is a dirty hack to handle a printing error on
-            // a number of physical cards. On a properly formed card it can't
-            // do much damage anyway...
+            // a number of physical cards resulting from accidentally sending card data
+            // with `application/x-www-form-urlencoded` and forgetting this encoding is not
+            // actually transparent for card data. (don't do that!)
+            // On a properly formed card it can't do much damage anyway...
             qslString = qslString.replaceAll("%20", "+");
+
+            // Some not-well-behaved QR code readers observed in the wild will
+            // urlencode the hash *anyway* even though it's correct in the QR code itself,
+            // so we will have to fix this here. This, likewise, should not mess up a legit card.
+            qslString = decodeURIComponent(qslString);
 
             card = HQSL.fromString(qslString);
             // And then try to verify it, which will cause an assignment with.
